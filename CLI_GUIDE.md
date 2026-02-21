@@ -1,6 +1,6 @@
-# :earth_americas: GDP Dashboard CLI Guide
+# :earth_americas: GDP Dashboard MASSIVE CLI Guide
 
-This guide provides instructions on how to install and run the optimized CLI version of the GDP Dashboard on Windows and macOS.
+This guide provides instructions on how to install and run the ultimate, multi-command CLI version of the GDP Dashboard on Windows and macOS.
 
 ## :gear: Prerequisites
 
@@ -12,7 +12,7 @@ This guide provides instructions on how to install and run the optimized CLI ver
 ## :rocket: Installation
 
 ### 1. Prepare Environment
-It is highly recommended to use a virtual environment to avoid dependency conflicts.
+It is highly recommended to use a virtual environment.
 
 #### **Windows (PowerShell)**
 ```powershell
@@ -27,42 +27,66 @@ source venv/bin/activate
 ```
 
 ### 2. Install Dependencies
-Install `pandas` and `rich` (used for the beautiful terminal UI).
 ```bash
 pip install -r requirements.txt
 ```
 
 ---
 
-## :terminal: Running the CLI
+## :terminal: Commands Overview
 
-### **Basic Run**
-Displays GDP growth for default countries (Germany, France, UK, Brazil, Mexico, Japan).
+The massive CLI supports several subcommands for different types of analysis.
+
+### **1. `view` - Detailed Country Data**
+Displays a formatted table of GDP values and growth for specific countries.
 ```bash
-# Windows
-python gdp_cli.py
-
-# macOS / Linux
-python3 gdp_cli.py
+python3 gdp_cli.py view --countries USA,CHN,IND --from-year 2010 --to-year 2022
 ```
 
-### **Advanced Options**
-
-| Argument | Description | Example |
-| :--- | :--- | :--- |
-| `--countries` | Comma-separated ISO country codes | `--countries USA,CHN,CAN` |
-| `--from-year` | Start year for comparison (1960+) | `--from-year 2000` |
-| `--to-year` | End year for comparison (up to 2022) | `--to-year 2015` |
-| `--list-countries` | Show all available country codes | `--list-countries` |
-
-**Example of a custom query:**
+### **2. `rank` - Global Economy Rankings**
+Ranks countries globally by GDP or growth rate.
 ```bash
-python3 gdp_cli.py --countries USA,GBR,FRA --from-year 2010 --to-year 2022
+# Rank by GDP (Top 20 in 2021)
+python3 gdp_cli.py rank --metric gdp --limit 20 --year 2021
+
+# Rank by Growth (Top 10)
+python3 gdp_cli.py rank --metric growth --limit 10
+```
+
+### **3. `stats` - Aggregate Statistics**
+Calculates Mean, Median, Total GDP, and more for a selection of countries.
+```bash
+python3 gdp_cli.py stats --countries DEU,FRA,GBR --year 2020
+```
+
+### **4. `search` - Find Country Codes**
+Search for the 3-letter ISO code using a country name.
+```bash
+python3 gdp_cli.py search "United"
+```
+
+### **5. `export` - Data Extraction**
+Save filtered data to external files for further use.
+```bash
+python3 gdp_cli.py export --countries USA,CHN --output my_data.json --format json
 ```
 
 ---
 
-## :bulb: Pro Tips
-- Use the `--list-countries` flag to find the exact 3-letter code for any country you're interested in.
-- The growth metric (`x`) shows how many times the GDP has increased from the start year to the end year.
-- If a year is missing in the data, it will display as `n/a`.
+## :bulb: Argument Reference
+
+| Command | Argument | Description |
+| :--- | :--- | :--- |
+| `view` | `--countries` | Comma-separated ISO codes (e.g. `USA,GBR`) |
+| `view` | `--from-year` | Start year for comparison (1960-2022) |
+| `rank` | `--metric` | Choose between `gdp` and `growth` |
+| `rank` | `--limit` | Number of results to display |
+| `stats` | `--year` | The year to analyze |
+| `export`| `--format` | Output file format: `csv` or `json` |
+
+---
+
+## :stars: Why this CLI is Awesome
+- **Beautiful UI**: Uses `rich` for tables, panels, and colors.
+- **Fast**: Leverages `pandas` for high-speed data processing.
+- **Comprehensive**: Covers every year from 1960 to 2022 for hundreds of countries and regions.
